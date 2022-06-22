@@ -29,19 +29,29 @@ formElem.addEventListener('submit', (event) => {
         addItemToUI(id, productName, productPrice);
         resetInput()
         
-
+        
     }
 });
 
-console.log(products)
+
 
 listGroupElem.addEventListener('click', (event) => {
     event.preventDefault();
     if (event.target.classList.contains('delete-item')) {
-        console.log('clciekd to delete');
+       
+        const id = getItemID(event.target);
+        document.querySelector(`.item-${id}`).remove();
+       
     }
        
-})
+});
+
+function getItemID(elem) {
+    return (Number(elem.parentElement.classList[1].split('-')[1]));
+   
+   
+}
+
 
 function resetInput() {
     prodcutInputElem.value = '';
@@ -56,11 +66,13 @@ function addItemToUI(id, name, price) {
             <li class="marginHorizontal item-${id}">
                 <span class="product" id="prodcut"> ${name} </span>
                 <span class="price" id="price"> ${price} </span>
-                <span> <i class="fa fa-trash delete-item" aria-hidden="true" id="deleteButton"></i> </span>
+                <i class="fa fa-trash delete-item" aria-hidden="true" id="deleteButton"></i>
             </li> 
     `
     listGroupElem.insertAdjacentHTML('afterbegin', htmlElemen)
 }
+
+
 
 function validateInput(name, price) {
     let isError = false;
